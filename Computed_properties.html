@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My first Vue app</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<div id="demo">first and last name: {{ fullName }}, middle names: {{ middleName }}</div>
+
+<body>
+
+</body>
+
+<script>
+    var vm = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar',
+            middleName: ''
+        },
+        computed: {
+            fullName: {
+                // getter
+                get: function () {
+                    return this.firstName + ' ' + this.lastName
+                },
+                // setter
+                set: function (newValue) {
+                    var names = newValue.split(' ')
+                    this.firstName = names[0]
+                    this.lastName = names[names.length - 1]
+                    this.middleName = (function (newValue) {
+                        var middleName = ''
+                        for (i = 1; i < names.length - 1; i++) {
+                            middleName += names[i] + ' '
+                        }
+                        return middleName
+                    })()
+                }
+            }
+        }
+
+    })
+</script>
+</body>
+
+</html>
